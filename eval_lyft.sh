@@ -1,11 +1,11 @@
 #!/bin/bash
 
-DATA_DIR="../nuscenes"
+DATA_DIR="/share1/nuscenes"
 DATA_DIR="/mnt/fsx/lyft"
 # there should be ${DATA_DIR}/full_v1.0/
 # and also ${DATA_DIR}/mini
 
-MODEL_NAME="16x3_5e-4s_rgb06_01:34:39"
+MODEL_NAME="8x5_5e-4_rgb12_22:43:46"
 
 EXP_NAME="eval" # eval 16x3_5e-4s_rgb06_01:34:39 lyft
 EXP_NAME="eval" # 416, B16

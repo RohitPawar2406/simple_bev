@@ -446,6 +446,7 @@ def add_ego2(bx, dx):
 
 
 def get_nusc_maps(map_folder):
+    map_folder = "/share1/nuscenes/"
     nusc_maps = {map_name: NuScenesMap(dataroot=map_folder,
                 map_name=map_name) for map_name in [
                     "singapore-hollandvillage", 
@@ -1139,7 +1140,8 @@ class VizData(NuscData):
 
         binimg = (binimg > 0).float()
         seg_bev = (seg_bev > 0).float()
-
+        
+        #breakpoint()
         if self.get_tids:
             return imgs, rots, trans, intrins, lidar0_data, lidar0_extra, lidar_data, lidar_extra, lrtlist, vislist, tidlist_, scorelist, seg_bev, valid_bev, center_bev, offset_bev, size_bev, ry_bev, ycoord_bev, radar_data, egopose
         else:
@@ -1251,7 +1253,7 @@ def compile_data(version, dataroot, data_aug_conf, centroid, bounds, res_3d, bsz
     else:
         print('loading nuscenes...')
         nusc = NuScenes(version='v1.0-{}'.format(version),
-                        dataroot=os.path.join(dataroot, version),
+                        dataroot=os.path.join(dataroot),
                         verbose=False)
     print('making parser...')
     traindata = VizData(

@@ -73,6 +73,11 @@ def rgba2rgb( rgba, background=(255,255,255) ):
 def run_model(loader, index, model, d, img_dir, device='cuda:0', sw=None):
     imgs_all, rots_all, trans_all, intrins_all, pts0_all, extra0_all, pts_all, extra_all, lrtlist_velo_all, vislist_all, tidlist_all, scorelist_all, seg_bev_g_all, valid_bev_g_all, center_bev_g_all, offset_bev_g_all, radar_data_all, egopose_all = d
 
+    # print(imgs_all.shape, rots_all.shape, trans_all.shape, intrins_all.shape, pts0_all.shape, extra0_all.shape, pts_all.shape, extra_all.shape, lrtlist_velo_all.shape, vislist_all.shape, tidlist_all.shape, scorelist_all.shape, seg_bev_g_all.shape, valid_bev_g_all.shape, center_bev_g_all.shape, offset_bev_g_all.shape, radar_data_all.shape, egopose_all.shape)
+    """
+    torch.Size([1, 40, 6, 3, 448, 800]) torch.Size([1, 40, 6, 3, 3]) torch.Size([1, 40, 6, 3]) torch.Size([1, 40, 6, 4, 4]) torch.Size([1, 40, 3, 30000]) torch.Size([1, 40, 3, 30000]) torch.Size([1, 40, 3, 90000]) torch.Size([1, 40, 3, 90000]) torch.Size([1, 40, 150, 19]) torch.Size([1, 40, 150]) torch.Size([1, 40, 150]) torch.Size([1, 40, 150]) torch.Size([1, 40, 1, 200, 200]) torch.Size([1, 40, 1, 200, 200]) torch.Size([1, 40, 1, 200, 200]) torch.Size([1, 40, 2, 200, 200]) torch.Size([1, 40, 19, 2100]) torch.Size([1, 40, 4, 4])
+    """
+
     T = imgs_all.shape[1]
 
     nusc_maps = get_nusc_maps(loader.dataset.data_root)
@@ -274,14 +279,14 @@ def run_model(loader, index, model, d, img_dir, device='cuda:0', sw=None):
 def main(
         exp_name='debug',
         # eval
-        max_iters=100000,
+        max_iters=100,
         log_freq=100,
         dset='trainval',
         batch_size=1, # batch size = 1 only
         timesteps=40, # a sequence is typically 40 frames (20s * 2fps)
-        nworkers=12,
+        nworkers=4,
         # data/log/save/load directories
-        data_dir='../nuscenes/',
+        data_dir='/share1/nuscenes/',
         log_dir='logs_nuscenes_bevseg',
         img_dir='vis',
         ckpt_dir='checkpoints/',
@@ -372,7 +377,7 @@ def main(
     requires_grad(parameters, False)
     model.eval()
 
-    while global_step < max_iters:
+    while global_step < max_iters: # 100
         global_step += 1
 
         read_start_time = time.time()

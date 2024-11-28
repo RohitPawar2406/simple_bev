@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATA_DIR="../nuscenes"
+DATA_DIR="/share1/nuscenes"
 # there should be ${DATA_DIR}/full_v1.0/
 # and also ${DATA_DIR}/mini
 
@@ -23,5 +23,6 @@ python train_nuscenes.py \
        --ncams=6 \
        --encoder_type='res101' \
        --do_rgbcompress=True \
-       --device_ids=[0] 
+       --device_ids=[0] \
+       #--use_lidar=True
 

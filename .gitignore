@@ -1,2 +1,4 @@
 *~
 __pycache__
+checkpoints/
+logs_eval_nuscenes
